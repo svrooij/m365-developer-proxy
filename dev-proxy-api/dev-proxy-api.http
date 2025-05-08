@@ -1,0 +1,6 @@
+@dev_proxy_api_HostAddress = http://localhost:5293
+
+GET {{dev_proxy_api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

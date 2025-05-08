@@ -154,7 +154,7 @@ public class ProxyEngine
         // when run for example in VSCode's integrated terminal
         if (!Console.IsInputRedirected)
         {
-            ReadKeys();
+            ReadKeys(cancellationToken ?? default);
         }
         while (_proxyServer.ProxyRunning) { await Task.Delay(10); }
     }
@@ -210,7 +210,7 @@ public class ProxyEngine
         _requestLogs.Add(e.RequestLog);
     }
 
-    private void ReadKeys()
+    private void ReadKeys(CancellationToken cancellationToken = default)
     {
         ConsoleKey key;
         do
@@ -231,7 +231,7 @@ public class ProxyEngine
                 Console.WriteLine("Press CTRL+C to stop Dev Proxy");
                 Console.WriteLine("");
             }
-        } while (key != ConsoleKey.Escape);
+        } while (!cancellationToken.IsCancellationRequested);
     }
 
     private void StartRecording()
